@@ -1,0 +1,245 @@
+import axios from "axios";
+
+/* ================= BASE CONFIG ================= */
+
+const API_BASE_URL = "http://localhost:5000/api";
+
+const api = axios.create({
+  baseURL: API_BASE_URL,
+});
+
+/* ================= JWT INTERCEPTOR ================= */
+
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+export default api;
+
+/* ================= AUTH API ================= */
+
+export const authAPI = {
+  // Google OAuth login
+  googleLogin: (token) =>
+    api.post("/auth/google-login", { token }),
+
+  // Verify OTP
+  verifyOTP: (userId, otp) =>
+    api.post("/auth/verify-otp", { userId, otp }),
+  // Microsoft OAuth login
+  microsoftLogin: (token) =>
+  api.post("/auth/microsoft-login", { token }),
+
+};
+
+/* ================= ADMIN API ================= */
+/* 🔐 Admin login is HARD-CODED (univision/univision) */
+
+export const adminAPI = {
+  login: (data) => api.post("/admin/login", data),
+
+  addUser: (data) => api.post("/admin/add-user", data),
+};
+
+/* ================= CANDIDATES API ================= */
+
+export const candidatesAPI = {
+  getAll: () => api.get("/candidates"),
+  getById: (id) => api.get(`/candidates/${id}`),
+  create: (data) => api.post("/candidates", data),
+  update: (id, data) => api.put(`/candidates/${id}`, data),
+  delete: (id) => api.delete(`/candidates/${id}`),
+};
+
+/* ================= INTERVIEWS API ================= */
+
+export const interviewsAPI = {
+  getAll: () => api.get("/interviews"),
+
+  getByCandidate: (candidateId) =>
+    api.get(`/interviews/candidate/${candidateId}`),
+
+  create: (data) => api.post("/interviews", data),
+
+  update: (id, data) =>
+    api.put(`/interviews/${id}`, data),
+
+  // ✅ Status update
+  updateStatus: (id, data) =>
+    api.put(`/interviews/${id}/status`, data),
+};
+
+/* ================= OFFERS API ================= */
+
+export const offersAPI = {
+  getByCandidate: (candidateId) =>
+    api.get(`/offers/candidate/${candidateId}`),
+
+  create: (data) => api.post("/offers", data),
+};
+
+/* ================= EMAILS API ================= */
+
+export const emailsAPI = {
+  sendInterview: (data) =>
+    api.post("/emails/interview", data),
+
+  sendOffer: (data) =>
+    api.post("/emails/offer", data),
+
+  getLogs: () =>
+    api.get("/emails/logs"),
+};
+
+/* ================= AI API ================= */
+
+export const aiAPI = {
+  parseResume: (data) =>
+    api.post("/ai/parse-resume", data),
+
+  analyzeResume: (data) =>
+    api.post("/ai/analyze", data),
+
+  getJDSuggestions: (data) =>
+    api.post("/ai/jd-suggestions", data),
+
+  getInterviewTips: (data) =>
+    api.post("/ai/interview-tips", data),
+
+  convertResumeFormat: (formData) =>
+    api.post("/ai/convert-resume-format", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }),
+
+  generateFormattedResume: (data) =>
+    api.post("/ai/generate-formatted-resume", data),
+
+  // ✅ Download PDF / DOC
+  downloadFormattedResume: (data) =>
+    api.post("/ai/generate-formatted-resume", data, {
+      responseType: "blob",
+    }),
+    
+};
+
+/* ================= INTERVIEWERS API ================= */
+
+export const interviewersAPI = {
+  getAll: () => api.get("/interviewers"),
+  create: (data) => api.post("/interviewers", data),
+  delete: (id) => api.delete(`/interviewers/${id}`),
+};
+
+// import axios from 'axios';
+
+// const API_BASE_URL = 'http://localhost:5000/api';
+
+// const api = axios.create({
+//   baseURL: API_BASE_URL,
+// });
+// api.interceptors.request.use(
+//   (config) => {
+//     const token = localStorage.getItem("token");
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
+
+// export default api;
+
+// // ================= AUTH API =================
+// export const authAPI = {
+//   googleLogin: (token) =>
+//     api.post('/auth/google-login', { token }),
+
+//   verifyOTP: (userId, otp) =>
+//     api.post('/auth/verify-otp', { userId, otp }),
+// };
+
+// // ================= Candidates API =================
+// export const candidatesAPI = {
+//   getAll: () => api.get('/candidates'),
+//   getById: (id) => api.get(`/candidates/${id}`),
+//   create: (data) => api.post('/candidates', data),
+//   update: (id, data) => api.put(`/candidates/${id}`, data),
+//   delete: (id) => api.delete(`/candidates/${id}`),
+// };
+
+// // ================= Interviews API =================
+// export const interviewsAPI = {
+//   getAll: () => api.get('/interviews'),
+//   getByCandidate: (candidateId) =>
+//     api.get(`/interviews/candidate/${candidateId}`),
+//   create: (data) => api.post('/interviews', data),
+//   update: (id, data) => api.put(`/interviews/${id}`, data),
+
+//    // ✅ NEW
+//   updateStatus: (id, data) =>
+//     api.put(`/interviews/${id}/status`, data),
+  
+// };
+
+// // ================= Offers API =================
+// export const offersAPI = {
+//   getByCandidate: (candidateId) =>
+//     api.get(`/offers/candidate/${candidateId}`),
+//   create: (data) => api.post('/offers', data),
+// };
+
+
+// // Emails API
+// export const emailsAPI = {
+//   sendInterview: (data) => axios.post(`${API_BASE_URL}/emails/interview`, data),
+//   sendOffer: (data) => axios.post(`${API_BASE_URL}/emails/offer`, data),
+//   getLogs: () => axios.get(`${API_BASE_URL}/emails/logs`)
+// };  
+
+// // AI API
+// export const aiAPI = {
+//   parseResume: (data) =>
+//     axios.post(`${API_BASE_URL}/ai/parse-resume`, data),
+
+//   analyzeResume: (data) =>
+//     axios.post(`${API_BASE_URL}/ai/analyze`, data),
+
+//   getJDSuggestions: (data) =>
+//     axios.post(`${API_BASE_URL}/ai/jd-suggestions`, data),
+
+//   getInterviewTips: (data) =>
+//     axios.post(`${API_BASE_URL}/ai/interview-tips`, data),
+
+//   convertResumeFormat: (formData) =>
+//     axios.post(`${API_BASE_URL}/ai/convert-resume-format`, formData, {
+//       headers: { "Content-Type": "multipart/form-data" },
+//     }),
+
+//   generateFormattedResume: (data) =>
+//     axios.post(`${API_BASE_URL}/ai/generate-formatted-resume`, data),
+
+//   // ✅ FIXED DOWNLOAD
+//   downloadFormattedResume: (data) =>
+//     axios.post(
+//       `${API_BASE_URL}/ai/generate-formatted-resume`,
+//       data,
+//       { responseType: "blob" }
+//     ),
+
+
+//      // ✅ CORRECTED - Using axios directly with full URL
+//   addUser: (data) =>
+//     axios.post(`${API_BASE_URL}/admin/add-user`, data, {
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("token")}`
+//       }
+//     }),
+
