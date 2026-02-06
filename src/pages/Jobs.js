@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import '../pages/AnimationsAndStyles.css';
 
 const POSITIONS = [
+  'Engineer',
   'Embedded System',
   'Embedded Software',
   'Post Silicon Validation',

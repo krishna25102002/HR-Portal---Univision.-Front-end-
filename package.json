@@ -2,7 +2,6 @@
   "name": "hr-portal-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@azure/msal-browser": "^4.27.0",
     "@azure/msal-react": "^3.0.23",
