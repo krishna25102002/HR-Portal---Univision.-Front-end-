@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/client";
 import "./admin.css";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Admin() {
   /* ================= ADMIN AUTH ================= */
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate(); 
   /* ================= FORM STATES ================= */
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -55,11 +57,12 @@ export default function Admin() {
 
   /* ================= LOGOUT ================= */
   const handleLogout = () => {
-    localStorage.removeItem("adminLoggedIn");
-    setLoggedIn(false);
-    setUsers([]);
-    resetForm();
-  };
+  localStorage.removeItem("adminLoggedIn");
+  setLoggedIn(false);
+  setUsers([]);
+  resetForm();
+  navigate("/login"); // ✅ redirect to login page
+};
 
   /* ================= FETCH USERS ================= */
   const fetchUsers = async () => {
