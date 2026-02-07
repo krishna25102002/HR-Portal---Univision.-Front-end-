@@ -93,16 +93,22 @@ export default function CandidatesList() {
 
       const res = await resumesAPI.parseResume(fd);
 
-      setFormData({
-        first_name: res.data.first_name || '',
-        last_name: res.data.last_name || '',
-        email_id: res.data.email_id || '',
-        phone_number: res.data.phone_number || '',
-        skills: res.data.skills || '',
-        experience: res.data.experience || '',
-        education: res.data.education || '',
-        position: res.data.position || ''
-      });
+            setFormData(prev => ({
+            ...prev,
+            first_name: res.data.first_name || "",
+            last_name: res.data.last_name || "",
+            email_id: res.data.email_id || "",
+            phone_number: res.data.phone_number || "",
+            skills: Array.isArray(res.data.skills)
+              ? res.data.skills.join(", ")
+              : res.data.skills || "",
+            experience: res.data.experience || "",
+            education: Array.isArray(res.data.education)
+              ? res.data.education.join(" ")
+              : res.data.education || "",
+          }));
+
+
 
       toast.success("✅ Resume parsed successfully");
 
@@ -231,27 +237,27 @@ export default function CandidatesList() {
 
           {/* FORM FIELDS */}
           <div className="form-grid">
-            <input 
-              name="first_name" 
-              placeholder="First Name *" 
-              value={formData.first_name} 
-              onChange={handleChange}
-              required
-            />
-            <input 
-              name="last_name" 
-              placeholder="Last Name" 
-              value={formData.last_name} 
-              onChange={handleChange}
-            />
-            <input 
-              name="email_id" 
-              type="email"
-              placeholder="Email Address *" 
-              value={formData.email_id} 
-              onChange={handleChange}
-              required
-            />
+                <input
+                  name="first_name"
+                  value={formData.first_name}
+                  onChange={handleChange}
+                  placeholder="First Name *"
+                />
+
+                <input
+                  name="last_name"
+                  value={formData.last_name}
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                />
+
+                <input
+                  name="email_id"
+                  value={formData.email_id}
+                  onChange={handleChange}
+                  placeholder="Email Address *"
+                />
+
             <input 
               name="phone_number" 
               placeholder="Phone (+91-XXXXXXXXXX)" 
