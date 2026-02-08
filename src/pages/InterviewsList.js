@@ -197,10 +197,18 @@ export default function InterviewsList() {
 
       await emailsAPI.sendInterview({
   candidate_email: selectedCandidate.email_id,
+  interviewer_email: form.interviewer_email, // 👈 CC
   scheduled_date: form.scheduled_date,
   interview_type: form.interview_type,
   interviewer: form.interviewer_name
 });
+
+//       await emailsAPI.sendInterview({
+//   candidate_email: selectedCandidate.email_id,
+//   scheduled_date: form.scheduled_date,
+//   interview_type: form.interview_type,
+//   interviewer: form.interviewer_name
+// });
 
 
       await interviewsAPI.updateStatus(interviewId, {
