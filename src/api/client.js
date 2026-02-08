@@ -145,6 +145,21 @@ export const resumesAPI = {
     }),
 };
 
+/* ================= ✅ PROFILE API - NEW! ================= */
+export const profileAPI = {
+  // ✅ STATUS ACTIVITY - THIS FIXES YOUR ERROR!
+  getStatusActivity: () => api.get("/profile/status-activity"),
+  
+  // Profile info
+  getProfile: () => api.get("/profile/me"),
+}; 
+
+/* ================= STATUS SYNC HELPER ================= */
+export const notifyStatusUpdated = () => {
+  localStorage.setItem("STATUS_UPDATED_AT", Date.now().toString());
+};
+
+
 // import axios from "axios";
 
 // /* ================= BASE CONFIG ================= */

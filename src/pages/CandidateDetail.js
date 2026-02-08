@@ -296,6 +296,7 @@ export default function CandidateDetail() {
             className="field-select"
           >
             <option value="">Select Position</option>
+            <option value="Software Engineer">Software Engineer</option>
             <option value="Embedded System">Embedded System</option>
             <option value="Embedded Software">Embedded Software</option>
             <option value="Post Silicon Validation">Post Silicon Validation</option>
@@ -331,6 +332,7 @@ export default function CandidateDetail() {
             <option value="shortlisted">Shortlisted</option>
             <option value="interview">Interview</option>
             <option value="offered">Offered</option>
+            <option value="hold">Hold</option>
             <option value="rejected">Rejected</option>
           </select>
         ) : (

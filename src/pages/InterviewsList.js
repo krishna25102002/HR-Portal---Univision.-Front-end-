@@ -53,7 +53,7 @@ export default function InterviewsList() {
   
   // 🔹 Search State
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   // 🔹 Interview Type Tabs
   const [interviewCategory, setInterviewCategory] = useState('internal');
 
@@ -196,11 +196,12 @@ export default function InterviewsList() {
       const interviewId = interviewRes.data.id;
 
       await emailsAPI.sendInterview({
-        candidate_email: selectedCandidate.email_id,
-        interview_date: form.scheduled_date,
-        interview_type: form.interview_type,
-        interviewer: form.interviewer_name
-      });
+  candidate_email: selectedCandidate.email_id,
+  scheduled_date: form.scheduled_date,
+  interview_type: form.interview_type,
+  interviewer: form.interviewer_name
+});
+
 
       await interviewsAPI.updateStatus(interviewId, {
         status: 'invitation_sent'
@@ -426,11 +427,16 @@ export default function InterviewsList() {
 
               <div style={styles.formGroup}>
                 <label style={styles.label}>Date & Time</label>
-                <input
-                  type="datetime-local"
-                  style={styles.input}
-                  onChange={e => setForm(prev => ({ ...prev, scheduled_date: e.target.value }))}
-                />
+               <input
+                    type="datetime-local"
+                    value={form.scheduled_date}
+                    onChange={(e) =>
+                      setForm(prev => ({
+                        ...prev,
+                        scheduled_date: e.target.value
+                      }))
+                    }
+                  />
               </div>
 
               <div style={styles.formGroup}>
