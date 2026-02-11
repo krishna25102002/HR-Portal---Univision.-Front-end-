@@ -100,3 +100,5 @@ export const msalConfig = {
 };
 
 export const msalInstance = new PublicClientApplication(msalConfig);
+
+//http://172.31.44.149:5000/api/auth/microsoft-login 

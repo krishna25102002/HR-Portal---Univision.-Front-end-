@@ -72,22 +72,45 @@ const [resumeSearch, setResumeSearch] = useState("");
   };
 
   /* ================= DOWNLOAD & FETCH FUNCTIONS (UNCHANGED) ================= */
-  const handleDownload = async (resumeId) => {
-    try {
-      const res = await resumesAPI.download(resumeId);
-      const url = window.URL.createObjectURL(new Blob([res.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `resume-${resumeId}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-      toast.success("Resume downloaded!");
-    } catch (err) {
-      toast.error("Download failed");
+const handleDownload = async (resumeId) => {
+  try {
+    const res = await resumesAPI.download(resumeId);
+
+    console.log("Download response:", res.data);
+
+    const downloadUrl = res.data.downloadUrl;
+
+    if (!downloadUrl) {
+      toast.error("No download URL received");
+      return;
     }
-  };
+
+    // Open signed S3 URL
+    window.open(downloadUrl, "_blank");
+
+  } catch (err) {
+    console.error(err);
+    toast.error("Download failed");
+  }
+};
+
+
+  // const handleDownload = async (resumeId) => {
+  //   try {
+  //     const res = await resumesAPI.download(resumeId);
+  //     const url = window.URL.createObjectURL(new Blob([res.data]));
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", `resume-${resumeId}.pdf`);
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     link.remove();
+  //     window.URL.revokeObjectURL(url);
+  //     toast.success("Resume downloaded!");
+  //   } catch (err) {
+  //     toast.error("Download failed");
+  //   }
+  // };
 
   // Fetch resume updates (unchanged)
   useEffect(() => {
