@@ -379,20 +379,24 @@ const handleDownload = async (resumeId) => {
               <div style={styles.filterSection}>
                 <label style={styles.filterLabel}>Filter: </label>
                 <select 
-                  style={{
-                    ...styles.filterSelect,
-                    borderColor: getStatusColor(statusFilter),
-                    background: `linear-gradient(135deg, ${getStatusColor(statusFilter)}10, transparent)`
-                  }} 
-                  value={statusFilter} 
-                  onChange={e => setStatusFilter(e.target.value)}
-                >
-                  <option value="all">📊 All ({statusLogs.length})</option>
-                  <option value="applied">🟢 Applied</option>
-                  <option value="hold">🟡 Hold</option>
-                  <option value="invitation_sent">🔵 Invitation Sent</option>
-                  <option value="rejected">🔴 Rejected</option>
-                </select>
+                      style={{
+                        ...styles.filterSelect,
+                        borderColor: getStatusColor(statusFilter),
+                        background: `linear-gradient(135deg, ${getStatusColor(statusFilter)}10, transparent)`
+                      }} 
+                      value={statusFilter} 
+                      onChange={e => setStatusFilter(e.target.value)}
+                    >
+                      <option value="all">📊 All ({statusLogs.length})</option>
+                      <option value="applied">🟢 Applied</option>
+                      <option value="interview">🟣 Interview</option>
+                      <option value="invitation_sent">🔵 Invitation Sent</option>
+                      <option value="hold">🟡 Hold</option>
+                      <option value="offered">🟢 Offered</option>
+                      <option value="accepted">✅ Accepted</option>
+                      <option value="rejected">🔴 Rejected</option>
+                    </select>
+
               </div>
 
               {/* 📱 CARDS WITH ENHANCED GRAPHICS */}

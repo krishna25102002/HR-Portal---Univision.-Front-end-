@@ -329,10 +329,11 @@ export default function CandidateDetail() {
             className="field-select"
           >
             <option value="applied">Applied</option>
-            <option value="shortlisted">Shortlisted</option>
             <option value="interview">Interview</option>
-            <option value="offered">Offered</option>
+            <option value="invitation_sent">Invitation Sent</option>
             <option value="hold">Hold</option>
+            <option value="offered">Offered</option>
+            <option value="accepted">Accepted</option>
             <option value="rejected">Rejected</option>
           </select>
         ) : (
