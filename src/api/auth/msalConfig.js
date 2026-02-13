@@ -95,7 +95,8 @@ export const msalConfig = {
   auth: {
     clientId: "36d3fe1c-93f5-439c-9ada-f6cb3d38a92e", // EXACT App (client) ID
     authority: "https://login.microsoftonline.com/8b635c92-15fd-439f-a90b-872d13827fd9",
-    redirectUri: "http://localhost:3000/auth/microsoft",
+    // redirectUri: "http://localhost:3000/auth/microsoft",
+    redirectUri: "http://hrportalfrontend.s3-website.ap-south-1.amazonaws.com/auth/microsoft"
   },
 };
 
