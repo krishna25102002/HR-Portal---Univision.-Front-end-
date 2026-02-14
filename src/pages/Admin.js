@@ -89,7 +89,7 @@ export default function Admin() {
       resetForm();
     } catch (err) {
       alert(err.response?.data?.message || "Failed to add user");
-    } finally {
+    } finally { 
       setLoading(false);
     }
   };
